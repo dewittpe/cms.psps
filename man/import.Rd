@@ -3,9 +3,33 @@
 \name{import}
 \alias{import}
 \alias{psps_import_2010}
+\alias{psps_import_2011}
+\alias{psps_import_2012}
+\alias{psps_import_2013}
+\alias{psps_import_2014}
+\alias{psps_import_2015}
+\alias{psps_import_2016}
+\alias{psps_import_2017}
+\alias{psps_import_2018}
 \title{Import Functions for the PSPS data}
 \usage{
 psps_import_2010(path = NULL, ...)
+
+psps_import_2011(path = NULL, ...)
+
+psps_import_2012(path = NULL, ...)
+
+psps_import_2013(path = NULL, ...)
+
+psps_import_2014(path = NULL, ...)
+
+psps_import_2015(path = NULL, ...)
+
+psps_import_2016(path = NULL, ...)
+
+psps_import_2017(path = NULL, ...)
+
+psps_import_2018(path = NULL, ...)
 }
 \arguments{
 \item{path}{path to the directory where the downloaded data is stored.}

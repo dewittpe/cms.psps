@@ -2,5 +2,13 @@
 
 export(psps_download)
 export(psps_import_2010)
+export(psps_import_2011)
+export(psps_import_2012)
+export(psps_import_2013)
+export(psps_import_2014)
+export(psps_import_2015)
+export(psps_import_2016)
+export(psps_import_2017)
+export(psps_import_2018)
 export(psps_md5sum)
 export(psps_unzip)
