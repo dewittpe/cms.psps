@@ -25,6 +25,24 @@ psps_import_2010 <- function(path = NULL, ...) {
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2010L)
 }
 
+#' @rdname import
+#' @export
+psps_import_2011 <- function(path = NULL, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  import <-
+    lapply(list.files(paste0(path, "/psps2011"), full.names = TRUE, pattern = "091112$"),
+           data.table::fread,
+           sep = "\n",
+           header = FALSE,
+           showProgress = FALSE)
+
+  data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2011L)
+}
+
+
 psps_import_parse <- function(x) {
   data.table::set(x, j = "HCPCS_CD",                    value =            substring(x[["V1"]], first =   1L, last =   5L))
   data.table::set(x, j = "HCPCS_INITIAL_MODIFIER_CD",   value =            substring(x[["V1"]], first =   6L, last =   7L))
