@@ -76,6 +76,24 @@ psps_import_2013 <- function(path = NULL, ...) {
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2013L)
 }
 
+#' @rdname import
+#' @export
+psps_import_2014 <- function(path = NULL, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  import <-
+    lapply(list.files(paste0(path, "/psps2014"), full.names = TRUE, pattern = "PSPS\\d{2}\\.txt$"),
+           data.table::fread,
+           sep = "\n",
+           header = FALSE,
+           showProgress = FALSE)
+
+  data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2014L)
+}
+
+
 
 
 psps_import_parse <- function(x) {
