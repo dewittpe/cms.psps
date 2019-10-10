@@ -127,6 +127,22 @@ psps_import_2016 <- function(path = NULL, ...) {
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2016L)
 }
 
+#' @rdname import
+#' @export
+psps_import_2017 <- function(path = NULL, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  import <-
+    data.table::fread(file = paste0(path, "/psps2017/PSPS_2017.csv"),
+                      showProgress = FALSE,
+                      colClasses = c(rep(character(), 8),
+                                     rep(numeric(), 7),
+                                     rep(character(), 3)))
+
+  data.table::set(import, j = "YEAR", value = 2017L) 
+}
 
 
 
