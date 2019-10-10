@@ -11,6 +11,7 @@ Encoding: UTF-8
 URL: https://github.com/dewittpe/cms.psps
 LazyData: true
 Imports:
+    data.table,
     rappdirs
 Suggests:
     knitr,
