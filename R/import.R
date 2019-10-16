@@ -20,7 +20,8 @@ psps_import_2010 <- function(path = NULL, ...) {
            data.table::fread,
            sep = "\n",
            header = FALSE,
-           showProgress = FALSE)
+           showProgress = FALSE,
+           ...)
 
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2010L)
 }
@@ -37,7 +38,8 @@ psps_import_2011 <- function(path = NULL, ...) {
            data.table::fread,
            sep = "\n",
            header = FALSE,
-           showProgress = FALSE)
+           showProgress = FALSE,
+           ...)
 
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2011L)
 }
@@ -54,7 +56,8 @@ psps_import_2012 <- function(path = NULL, ...) {
            data.table::fread,
            sep = "\n",
            header = FALSE,
-           showProgress = FALSE)
+           showProgress = FALSE,
+           ...)
 
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2012L)
 }
@@ -71,7 +74,8 @@ psps_import_2013 <- function(path = NULL, ...) {
            data.table::fread,
            sep = "\n",
            header = FALSE,
-           showProgress = FALSE)
+           showProgress = FALSE,
+           ...)
 
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2013L)
 }
@@ -88,7 +92,8 @@ psps_import_2014 <- function(path = NULL, ...) {
            data.table::fread,
            sep = "\n",
            header = FALSE,
-           showProgress = FALSE)
+           showProgress = FALSE,
+           ...)
 
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2014L)
 }
@@ -105,7 +110,8 @@ psps_import_2015 <- function(path = NULL, ...) {
            data.table::fread,
            sep = "\n",
            header = FALSE,
-           showProgress = FALSE)
+           showProgress = FALSE,
+           ...)
 
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2015L)
 }
@@ -122,7 +128,8 @@ psps_import_2016 <- function(path = NULL, ...) {
            data.table::fread,
            sep = "\n",
            header = FALSE,
-           showProgress = FALSE)
+           showProgress = FALSE,
+           ...)
 
   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2016L)
 }
@@ -139,7 +146,8 @@ psps_import_2017 <- function(path = NULL, ...) {
                       showProgress = FALSE,
                       colClasses = c(rep(character(), 8),
                                      rep(numeric(), 7),
-                                     rep(character(), 3)))
+                                     rep(character(), 3)),
+                      ...)
 
   data.table::set(import, j = "YEAR", value = 2017L)
 }
@@ -156,7 +164,8 @@ psps_import_2018 <- function(path = NULL, ...) {
                       showProgress = FALSE,
                       colClasses = c(rep(character(), 8),
                                      rep(numeric(), 7),
-                                     rep(character(), 3)))
+                                     rep(character(), 3)),
+                      ...)
 
   data.table::set(import, j = "YEAR", value = 2018L)
 }
