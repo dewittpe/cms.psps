@@ -20,6 +20,30 @@
 #' psps_2010 <- psps_import_2010()
 #' psps_2010
 #'
+#' psps_2011 <- psps_import_2011()
+#' psps_2011
+#'
+#' psps_2012 <- psps_import_2012()
+#' psps_2012
+#'
+#' psps_2013 <- psps_import_2013()
+#' psps_2013
+#'
+#' psps_2014 <- psps_import_2014()
+#' psps_2014
+#'
+#' psps_2015 <- psps_import_2015()
+#' psps_2015
+#'
+#' psps_2016 <- psps_import_2016()
+#' psps_2016
+#'
+#' psps_2017 <- psps_import_2017()
+#' psps_2017
+#'
+#' psps_2018 <- psps_import_2018()
+#' psps_2018
+#'
 #' }
 #'
 #' @name import
@@ -187,8 +211,8 @@ psps_import_2018 <- function(path = NULL, ...) {
   data.table::set(import, j = "YEAR", value = 2018L)
 }
 
-
 psps_import_parse <- function(x) {
+  data.table::set(x, j = "V1",                          value = iconv(x[["V1"]], from = "Latin1", to = "UTF8"))
   data.table::set(x, j = "HCPCS_CD",                    value =            substring(x[["V1"]], first =   1L, last =   5L))
   data.table::set(x, j = "HCPCS_INITIAL_MODIFIER_CD",   value =            substring(x[["V1"]], first =   6L, last =   7L))
   data.table::set(x, j = "PROVIDER_SPEC_CD",            value =            substring(x[["V1"]], first =   8L, last =   9L))

@@ -57,6 +57,30 @@ if (!all(check$check)) {
 psps_2010 <- psps_import_2010()
 psps_2010
 
+psps_2011 <- psps_import_2011()
+psps_2011
+
+psps_2012 <- psps_import_2012()
+psps_2012
+
+psps_2013 <- psps_import_2013()
+psps_2013
+
+psps_2014 <- psps_import_2014()
+psps_2014
+
+psps_2015 <- psps_import_2015()
+psps_2015
+
+psps_2016 <- psps_import_2016()
+psps_2016
+
+psps_2017 <- psps_import_2017()
+psps_2017
+
+psps_2018 <- psps_import_2018()
+psps_2018
+
 }
 
 }
