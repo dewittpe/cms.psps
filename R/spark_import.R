@@ -299,33 +299,35 @@ psps_colClasses <-
     )
 
 psps_mutate_v2 <- function(.data, ...) {
-    # This is based on the PSPS File Desc Layout as of 08/29/2010
-    dplyr::mutate(.data,
-                  HCPCS_CD                   =            substr(.data$line, start =   1L, stop =   5L),  #1
-                  HCPCS_INITIAL_MODIFIER_CD  =            substr(.data$line, start =   6L, stop =   7L),  #2
-                  PROVIDER_SPEC_CD           =            substr(.data$line, start =   8L, stop =   9L),  #3
-                  CARRIER_NUM                =            substr(.data$line, start =  10L, stop =  14L),  #4
-                  PRICING_LOCALITY_CD        =            substr(.data$line, start =  15L, stop =  16L),  #5
-                  TYPE_OF_SERVICE_CD         =            substr(.data$line, start =  17L, stop =  17L),  #6
-                  PLACE_OF_SERVICE_CD        =            substr(.data$line, start =  18L, stop =  19L),  #7
-                  HCPCS_SECOND_MODIFIER_CD   =            substr(.data$line, start =  20L, stop =  21L),  #8
-                  PSPS_SUBMITTED_SERVICE_CNT = as.numeric(substr(.data$line, start =  22L, stop =  35L)), #9
-                  PSPS_SUBMITTED_CHARGE_AMT  = as.numeric(substr(.data$line, start =  36L, stop =  48L)), #10
-                  PSPS_ALLOWED_CHARGE_AMT    = as.numeric(substr(.data$line, start =  49L, stop =  61L)), #11
-                  PSPS_DENIED_SERVICES_CNT   = as.numeric(substr(.data$line, start =  62L, stop =  75L)), #12
-                  PSPS_DENIED_CHARGE_AMT     = as.numeric(substr(.data$line, start =  76L, stop =  88L)), #13
-                  PSPS_ASSIGNED_SERVICES_CNT = as.numeric(substr(.data$line, start =  89L, stop = 102L)), #14
-                  PSPS_NCH_PAYMENT_AMT       = as.numeric(substr(.data$line, start = 103L, stop = 115L)), #15
-                  PSPS_HCPCS_ASC_IND_CD      =            substr(.data$line, start = 116L, stop = 116L),  #16
-                  PSPS_ERROR_IND_CD          =            substr(.data$line, start = 117L, stop = 118L),  #17
-                  HCPCS_BETOS_CD_CD          =            substr(.data$line, start = 119L, stop = 121L),  #18
-                  `line`                     = NULL,
-                  ...
-                  )
+  # This is based on the PSPS File Desc Layout as of 08/29/2010
+  # .data <- sparklyr::spark_apply(.data, function(x) {x$line <- iconv(x$line, from = "Latin1", to = "UTF8"); x})
+  dplyr::mutate(.data,
+                HCPCS_CD                   =            substr(.data$line, start =   1L, stop =   5L),  #1
+                HCPCS_INITIAL_MODIFIER_CD  =            substr(.data$line, start =   6L, stop =   7L),  #2
+                PROVIDER_SPEC_CD           =            substr(.data$line, start =   8L, stop =   9L),  #3
+                CARRIER_NUM                =            substr(.data$line, start =  10L, stop =  14L),  #4
+                PRICING_LOCALITY_CD        =            substr(.data$line, start =  15L, stop =  16L),  #5
+                TYPE_OF_SERVICE_CD         =            substr(.data$line, start =  17L, stop =  17L),  #6
+                PLACE_OF_SERVICE_CD        =            substr(.data$line, start =  18L, stop =  19L),  #7
+                HCPCS_SECOND_MODIFIER_CD   =            substr(.data$line, start =  20L, stop =  21L),  #8
+                PSPS_SUBMITTED_SERVICE_CNT = as.numeric(substr(.data$line, start =  22L, stop =  35L)), #9
+                PSPS_SUBMITTED_CHARGE_AMT  = as.numeric(substr(.data$line, start =  36L, stop =  48L)), #10
+                PSPS_ALLOWED_CHARGE_AMT    = as.numeric(substr(.data$line, start =  49L, stop =  61L)), #11
+                PSPS_DENIED_SERVICES_CNT   = as.numeric(substr(.data$line, start =  62L, stop =  75L)), #12
+                PSPS_DENIED_CHARGE_AMT     = as.numeric(substr(.data$line, start =  76L, stop =  88L)), #13
+                PSPS_ASSIGNED_SERVICES_CNT = as.numeric(substr(.data$line, start =  89L, stop = 102L)), #14
+                PSPS_NCH_PAYMENT_AMT       = as.numeric(substr(.data$line, start = 103L, stop = 115L)), #15
+                PSPS_HCPCS_ASC_IND_CD      =            substr(.data$line, start = 116L, stop = 116L),  #16
+                PSPS_ERROR_IND_CD          =            substr(.data$line, start = 117L, stop = 118L),  #17
+                HCPCS_BETOS_CD_CD          =            substr(.data$line, start = 119L, stop = 121L),  #18
+                `line`                     = NULL,
+                ...
+                )
 }
 
 psps_mutate_v1 <- function(.data, ...) {
   # this is good for years 2004 - 2008 (not public)
+  # .data$`line` <- iconv(.data$line, from = "Latin1", to = "UTF8")
   dplyr::mutate(.data,
                 HCPCS_CD                    =            substr(.data$line, start =   1L, stop =   5L),
                 HCPCS_INITIAL_MODIFIER_CD   =            substr(.data$line, start =   6L, stop =   7L),
