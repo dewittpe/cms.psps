@@ -3,9 +3,33 @@
 \name{spark_import}
 \alias{spark_import}
 \alias{spark_psps_import_2010}
+\alias{spark_psps_import_2011}
+\alias{spark_psps_import_2012}
+\alias{spark_psps_import_2013}
+\alias{spark_psps_import_2014}
+\alias{spark_psps_import_2015}
+\alias{spark_psps_import_2016}
+\alias{spark_psps_import_2017}
+\alias{spark_psps_import_2018}
 \title{Spark Import Functions for the PSPS data}
 \usage{
 spark_psps_import_2010(sc, path = NULL, envir = .GlobalEnv, ...)
+
+spark_psps_import_2011(sc, path = NULL, envir = .GlobalEnv, ...)
+
+spark_psps_import_2012(sc, path = NULL, envir = .GlobalEnv, ...)
+
+spark_psps_import_2013(sc, path = NULL, envir = .GlobalEnv, ...)
+
+spark_psps_import_2014(sc, path = NULL, envir = .GlobalEnv, ...)
+
+spark_psps_import_2015(sc, path = NULL, envir = .GlobalEnv, ...)
+
+spark_psps_import_2016(sc, path = NULL, envir = .GlobalEnv, ...)
+
+spark_psps_import_2017(sc, path = NULL, envir = .GlobalEnv, ...)
+
+spark_psps_import_2018(sc, path = NULL, envir = .GlobalEnv, ...)
 }
 \arguments{
 \item{sc}{a sparklyr cluster}

@@ -78,149 +78,183 @@ spark_psps_import_2010 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
   invisible(TRUE)
 }
 
-# #' @rdname import
-# #' @export
-# spark_psps_import_2011 <- function(path = NULL, ...) {
-#   if (is.null(path)) {
-#     path <- rappdirs::user_data_dir(appname = "cms.psps")
-#   }
-#
-#   import <-
-#     lapply(list.files(paste0(path, "/psps2011"), full.names = TRUE, pattern = "091112$"),
-#            data.table::fread,
-#            sep = "\n",
-#            header = FALSE,
-#            showProgress = FALSE,
-#            ...)
-#
-#   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2011L)
-# }
-#
-# #' @rdname import
-# #' @export
-# spark_psps_import_2012 <- function(path = NULL, ...) {
-#   if (is.null(path)) {
-#     path <- rappdirs::user_data_dir(appname = "cms.psps")
-#   }
-#
-#   import <-
-#     lapply(list.files(paste0(path, "/psps2012"), full.names = TRUE, pattern = "PSPS\\d{2}$"),
-#            data.table::fread,
-#            sep = "\n",
-#            header = FALSE,
-#            showProgress = FALSE,
-#            ...)
-#
-#   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2012L)
-# }
-#
-# #' @rdname import
-# #' @export
-# spark_psps_import_2013 <- function(path = NULL, ...) {
-#   if (is.null(path)) {
-#     path <- rappdirs::user_data_dir(appname = "cms.psps")
-#   }
-#
-#   import <-
-#     lapply(list.files(paste0(path, "/psps2013"), full.names = TRUE, pattern = "PSPS\\d{2}\\.txt$"),
-#            data.table::fread,
-#            sep = "\n",
-#            header = FALSE,
-#            showProgress = FALSE,
-#            ...)
-#
-#   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2013L)
-# }
-#
-# #' @rdname import
-# #' @export
-# spark_psps_import_2014 <- function(path = NULL, ...) {
-#   if (is.null(path)) {
-#     path <- rappdirs::user_data_dir(appname = "cms.psps")
-#   }
-#
-#   import <-
-#     lapply(list.files(paste0(path, "/psps2014"), full.names = TRUE, pattern = "PSPS\\d{2}\\.txt$"),
-#            data.table::fread,
-#            sep = "\n",
-#            header = FALSE,
-#            showProgress = FALSE,
-#            ...)
-#
-#   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2014L)
-# }
-#
-# #' @rdname import
-# #' @export
-# spark_psps_import_2015 <- function(path = NULL, ...) {
-#   if (is.null(path)) {
-#     path <- rappdirs::user_data_dir(appname = "cms.psps")
-#   }
-#
-#   import <-
-#     lapply(list.files(paste0(path, "/psps2015"), full.names = TRUE, pattern = "PSPS\\d{2}\\.txt$"),
-#            data.table::fread,
-#            sep = "\n",
-#            header = FALSE,
-#            showProgress = FALSE,
-#            ...)
-#
-#   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2015L)
-# }
-#
-# #' @rdname import
-# #' @export
-# spark_psps_import_2016 <- function(path = NULL, ...) {
-#   if (is.null(path)) {
-#     path <- rappdirs::user_data_dir(appname = "cms.psps")
-#   }
-#
-#   import <-
-#     lapply(list.files(paste0(path, "/psps2016"), full.names = TRUE, pattern = "PSPS\\d{2}\\.(txt|TXT)$"),
-#            data.table::fread,
-#            sep = "\n",
-#            header = FALSE,
-#            showProgress = FALSE,
-#            ...)
-#
-#   data.table::set(psps_import_parse(data.table::rbindlist(import)), j = "YEAR", value = 2016L)
-# }
-#
-# #' @rdname import
-# #' @export
-# spark_psps_import_2017 <- function(path = NULL, ...) {
-#   if (is.null(path)) {
-#     path <- rappdirs::user_data_dir(appname = "cms.psps")
-#   }
-#
-#   import <-
-#     data.table::fread(file = paste0(path, "/psps2017/PSPS_2017.csv"),
-#                       showProgress = FALSE,
-#                       colClasses = c(rep(character(), 8),
-#                                      rep(numeric(), 7),
-#                                      rep(character(), 3)),
-#                       ...)
-#
-#   data.table::set(import, j = "YEAR", value = 2017L)
-# }
-#
-# #' @rdname import
-# #' @export
-# spark_psps_import_2018 <- function(path = NULL, ...) {
-#   if (is.null(path)) {
-#     path <- rappdirs::user_data_dir(appname = "cms.psps")
-#   }
-#
-#   import <-
-#     data.table::fread(file = paste0(path, "/psps2018/PSPS2018.csv"),
-#                       showProgress = FALSE,
-#                       colClasses = c(rep(character(), 8),
-#                                      rep(numeric(), 7),
-#                                      rep(character(), 3)),
-#                       ...)
-#
-#   data.table::set(import, j = "YEAR", value = 2018L)
-# }
+#' @rdname spark_import
+#' @export
+spark_psps_import_2011 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  files <- list.files(path = paste(path, "psps2011", sep = "/"),
+                      full.names = TRUE,
+                      pattern = "PSPS\\d{2}")
+
+  object <-
+    sparklyr::sdf_bind_rows(lapply(files, function(x, ...) {
+                                     sparklyr::spark_read_text(sc, name = x, path = x, ...)
+                                   }))
+
+  assign(x     = "psps_2011",
+         value = psps_mutate_v2(object, YEAR = 2011L),
+         envir = envir)
+
+  invisible(TRUE)
+}
+
+#' @rdname spark_import
+#' @export
+spark_psps_import_2012 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  files <- list.files(path = paste(path, "psps2012", sep = "/"),
+                      full.names = TRUE,
+                      pattern = "PSPS\\d{2}")
+
+  object <-
+    sparklyr::sdf_bind_rows(lapply(files, function(x, ...) {
+                                     sparklyr::spark_read_text(sc, name = x, path = x, ...)
+                                   }))
+
+  assign(x     = "psps_2012",
+         value = psps_mutate_v2(object, YEAR = 2012L),
+         envir = envir)
+
+  invisible(TRUE)
+}
+
+#' @rdname spark_import
+#' @export
+spark_psps_import_2013 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  files <- list.files(path = paste(path, "psps2013", sep = "/"),
+                      full.names = TRUE,
+                      pattern = "PSPS\\d{2}\\.(txt|TXT)$")
+
+  object <-
+    sparklyr::sdf_bind_rows(lapply(files, function(x, ...) {
+                                     sparklyr::spark_read_text(sc, name = x, path = x, ...)
+                                   }))
+
+  assign(x     = "psps_2013",
+         value = psps_mutate_v2(object, YEAR = 2013L),
+         envir = envir)
+
+  invisible(TRUE)
+}
+
+#' @rdname spark_import
+#' @export
+spark_psps_import_2014 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  files <- list.files(path = paste(path, "psps2014", sep = "/"),
+                      full.names = TRUE,
+                      pattern = "PSPS\\d{2}\\.(txt|TXT)$")
+
+  object <-
+    sparklyr::sdf_bind_rows(lapply(files, function(x, ...) {
+                                     sparklyr::spark_read_text(sc, name = x, path = x, ...)
+                                   }))
+
+  assign(x     = "psps_2014",
+         value = psps_mutate_v2(object, YEAR = 2014L),
+         envir = envir)
+
+  invisible(TRUE)
+}
+
+#' @rdname spark_import
+#' @export
+spark_psps_import_2015 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  files <- list.files(path = paste(path, "psps2015", sep = "/"),
+                      full.names = TRUE,
+                      pattern = "PSPS\\d{2}\\.(txt|TXT)$")
+
+  object <-
+    sparklyr::sdf_bind_rows(lapply(files, function(x, ...) {
+                                     sparklyr::spark_read_text(sc, name = x, path = x, ...)
+                                   }))
+
+  assign(x     = "psps_2015",
+         value = psps_mutate_v2(object, YEAR = 2015L),
+         envir = envir)
+
+  invisible(TRUE)
+}
+
+#' @rdname spark_import
+#' @export
+spark_psps_import_2016 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  files <- list.files(path = paste(path, "psps2016", sep = "/"),
+                      full.names = TRUE,
+                      pattern = "PSPS\\d{2}\\.(txt|TXT)$")
+
+  object <-
+    sparklyr::sdf_bind_rows(lapply(files, function(x, ...) {
+                                     sparklyr::spark_read_text(sc, name = x, path = x, ...)
+                                   }))
+
+  assign(x     = "psps_2016",
+         value = psps_mutate_v2(object, YEAR = 2016L),
+         envir = envir)
+
+  invisible(TRUE)
+}
+
+#' @rdname spark_import
+#' @export
+spark_psps_import_2017 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  assign(x     = "psps_2017",
+         value =
+           dplyr::mutate(sparklyr::spark_read_csv(sc = sc,
+                                          name = "psps_2017",
+                                          path = paste(path, "psps2017", "PSPS_2017.csv", sep = "/"),
+                                          colClasses = psps_colClasses,
+                                          ...),
+                         YEAR = 2017L),
+         envir = envir)
+
+  invisible(TRUE)
+}
+
+#' @rdname spark_import
+#' @export
+spark_psps_import_2018 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
+  if (is.null(path)) {
+    path <- rappdirs::user_data_dir(appname = "cms.psps")
+  }
+
+  assign(x     = "psps_2018",
+         value =
+           dplyr::mutate(sparklyr::spark_read_csv(sc = sc,
+                                          name = "psps_2018",
+                                          path = paste(path, "psps2018", "PSPS_2018.csv", sep = "/"),
+                                          colClasses = psps_colClasses,
+                                          ...),
+                         YEAR = 2018L),
+         envir = envir)
+
+  invisible(TRUE)
+}
 
 
 # colClasses
@@ -277,6 +311,7 @@ psps_mutate_v2 <- function(.data, ...) {
 }
 
 psps_mutate_v1 <- function(.data, ...) {
+  # this is good for years 2004 - 2008 (not public)
   dplyr::mutate(.data,
                 HCPCS_CD                    =            substr(.data$line, start =   1L, stop =   5L),
                 HCPCS_INITIAL_MODIFIER_CD   =            substr(.data$line, start =   6L, stop =   7L),
