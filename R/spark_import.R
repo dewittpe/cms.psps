@@ -50,6 +50,16 @@
 #' spark_psps_import_2015(sc, memory = FALSE)
 #' psps_2015
 #'
+#' # Be aware: There are some non utf8 characters in the data.  Be aware and
+#' # explore and test your data exports.  In the example below there is a
+#' psps_2015 %>%
+#'   dplyr::group_by(HCPCS_INITIAL_MODIFIER_CD) %>%
+#'   dplyr::summarize(n()) %>%
+#'   dplyr::arrange(HCPCS_INITIAL_MODIFIER_CD) %>%
+#'   dplyr::collect() %>%
+#'   dplyr::filter(grepl("^G.*", HCPCS_INITIAL_MODIFIER_CD)) %>%
+#'   print(n = Inf)
+#'
 #' spark_psps_import_2016(sc, memory = FALSE)
 #' psps_2016
 #'
