@@ -72,15 +72,29 @@ ls()
 spark_psps_import_2010(sc, memory = FALSE)
 psps_2010
 
-#spark_psps_import_2011(sc, memory = FALSE)
+spark_psps_import_2011(sc, memory = FALSE)
 psps_2011
-#spark_psps_import_2012(sc, memory = FALSE)
-#spark_psps_import_2013(sc, memory = FALSE)
-#spark_psps_import_2014(sc, memory = FALSE)
-#spark_psps_import_2015(sc, memory = FALSE)
-#spark_psps_import_2016(sc, memory = FALSE)
-#spark_psps_import_2017(sc, memory = FALSE)
-#spark_psps_import_2018(sc, memory = FALSE)
+
+spark_psps_import_2012(sc, memory = FALSE)
+psps_2012
+
+spark_psps_import_2013(sc, memory = FALSE)
+psps_2013
+
+spark_psps_import_2014(sc, memory = FALSE)
+psps_2014
+
+spark_psps_import_2015(sc, memory = FALSE)
+psps_2015
+
+spark_psps_import_2016(sc, memory = FALSE)
+psps_2016
+
+spark_psps_import_2017(sc, memory = FALSE)
+psps_2017
+
+spark_psps_import_2018(sc, memory = FALSE)
+psps_2018
 
 ls()
 

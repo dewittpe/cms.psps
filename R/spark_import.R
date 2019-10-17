@@ -35,15 +35,29 @@
 #' spark_psps_import_2010(sc, memory = FALSE)
 #' psps_2010
 #'
-#' #spark_psps_import_2011(sc, memory = FALSE)
+#' spark_psps_import_2011(sc, memory = FALSE)
 #' psps_2011
-#' #spark_psps_import_2012(sc, memory = FALSE)
-#' #spark_psps_import_2013(sc, memory = FALSE)
-#' #spark_psps_import_2014(sc, memory = FALSE)
-#' #spark_psps_import_2015(sc, memory = FALSE)
-#' #spark_psps_import_2016(sc, memory = FALSE)
-#' #spark_psps_import_2017(sc, memory = FALSE)
-#' #spark_psps_import_2018(sc, memory = FALSE)
+#'
+#' spark_psps_import_2012(sc, memory = FALSE)
+#' psps_2012
+#'
+#' spark_psps_import_2013(sc, memory = FALSE)
+#' psps_2013
+#'
+#' spark_psps_import_2014(sc, memory = FALSE)
+#' psps_2014
+#'
+#' spark_psps_import_2015(sc, memory = FALSE)
+#' psps_2015
+#'
+#' spark_psps_import_2016(sc, memory = FALSE)
+#' psps_2016
+#'
+#' spark_psps_import_2017(sc, memory = FALSE)
+#' psps_2017
+#'
+#' spark_psps_import_2018(sc, memory = FALSE)
+#' psps_2018
 #'
 #' ls()
 #'
@@ -247,7 +261,7 @@ spark_psps_import_2018 <- function(sc, path = NULL, envir = .GlobalEnv, ...) {
          value =
            dplyr::mutate(sparklyr::spark_read_csv(sc = sc,
                                           name = "psps_2018",
-                                          path = paste(path, "psps2018", "PSPS_2018.csv", sep = "/"),
+                                          path = paste(path, "psps2018", "PSPS2018.csv", sep = "/"),
                                           colClasses = psps_colClasses,
                                           ...),
                          YEAR = 2018L),
