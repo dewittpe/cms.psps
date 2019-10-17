@@ -29,13 +29,27 @@ Importing the PSPS data into spark via sparklyr
 \examples{
 \donttest{
 
+library(cms.psps)
+
+# Check that the data is as expected
+check <- psps_md5sum()
+if (!all(check$check)) {
+  psps_download()
+  psps_unzip()
+}
+
+# Set up spark if needed
+# sparklyr::spark_install()
+
 sc <- sparklyr::spark_connect("local")
 
 ls()
+
 spark_psps_import_2010(sc, memory = FALSE)
 psps_2010
 
 #spark_psps_import_2011(sc, memory = FALSE)
+psps_2011
 #spark_psps_import_2012(sc, memory = FALSE)
 #spark_psps_import_2013(sc, memory = FALSE)
 #spark_psps_import_2014(sc, memory = FALSE)

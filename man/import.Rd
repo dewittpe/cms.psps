@@ -42,3 +42,21 @@ A \code{\link[data.table]{data.table}}
 \description{
 Import Functions for the PSPS data
 }
+\examples{
+\donttest{
+
+library(cms.psps)
+
+# Check that the data is as expected
+check <- psps_md5sum()
+if (!all(check$check)) {
+  psps_download()
+  psps_unzip()
+}
+
+psps_2010 <- psps_import_2010()
+psps_2010
+
+}
+
+}

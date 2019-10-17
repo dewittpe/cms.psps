@@ -22,6 +22,7 @@
 #' check <- psps_md5sum()
 #' if (!all(check$check)) {
 #'   psps_download()
+#'   psps_unzip()
 #' }
 #'
 #' # Set up spark if needed
