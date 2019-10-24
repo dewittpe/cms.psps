@@ -52,6 +52,7 @@
 #'
 #' # Be aware: There are some non utf8 characters in the data.  Be aware and
 #' # explore and test your data exports.  In the example below there is a
+#' library(magrittr)
 #' psps_2015 %>%
 #'   dplyr::group_by(HCPCS_INITIAL_MODIFIER_CD) %>%
 #'   dplyr::summarize(n()) %>%

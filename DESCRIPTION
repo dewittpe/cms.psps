@@ -17,6 +17,7 @@ Imports:
     sparklyr
 Suggests:
     knitr,
+    magrittr,
     rmarkdown
 RoxygenNote: 6.1.99.9001
 VignetteBuilder: knitr
