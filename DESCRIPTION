@@ -2,11 +2,11 @@ Package: cms.psps
 Title: Centers for Medicare and Medicaid Physician/Suppler Procedure Summary
 Version: 0.0.0.9001
 Authors@R: c(
-    person("Peter", "DeWitt", , "dewittpe@gmail.com", role = c("aut", "cre"))
+    person(given = "Peter", family = "DeWitt", email = "dewittpe@gmail.com", role = c("aut"), comment = c(ORCID = "0000-0002-6391-0795"))
     )
-Description: Streamline data import and culling for the Physician/Suppler
+Description: Streamline download and import of the Physician/Suppler
     Procedure Summary data provided by the Centers for Medicare and Medicaid.
-License: file LICENSE
+License: file MIT
 Encoding: UTF-8
 URL: https://github.com/dewittpe/cms.psps
 LazyData: true
