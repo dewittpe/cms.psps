@@ -1,18 +1,10 @@
-ifeq ($(OS), Windows_NT)
-	RM ?= del
-else
-  RM ?= /bin/rm
-endif
-
 PKG_ROOT    = .
 PKG_VERSION = $(shell gawk '/^Version:/{print $$2}' $(PKG_ROOT)/DESCRIPTION)
 PKG_NAME    = $(shell gawk '/^Package:/{print $$2}' $(PKG_ROOT)/DESCRIPTION)
 
 CRAN = "https://cran.rstudio.com"
 
-SRC       = $(wildcard $(PKG_ROOT)/src/*.cpp)
 RFILES    = $(wildcard $(PKG_ROOT)/R/*.R)
-EXAMPLES  = $(wildcard $(PKG_ROOT)/examples/*.R)
 TESTS     = $(wildcard $(PKG_ROOT)/tests/testthat/*.R)
 VIGNETTES = $(wildcard $(PKG_ROOT)/vignette-spinners/*.R)
 RAWDATAR  = $(wildcard $(PKG_ROOT)/data-raw/*.R)
