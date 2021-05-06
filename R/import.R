@@ -7,7 +7,7 @@
 #' @return A \code{\link[data.table]{data.table}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #'
 #' library(cms.psps)
 #'

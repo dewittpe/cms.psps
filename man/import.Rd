@@ -21,7 +21,7 @@ A \code{\link[data.table]{data.table}}
 Import Functions for the PSPS data
 }
 \examples{
-\donttest{
+\dontrun{
 
 library(cms.psps)
 
