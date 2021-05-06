@@ -1,6 +1,7 @@
 ^\.document\.Rout$
 ^\.travis\.yml$
-Makefile
+^Makefile$
 ^LICENSE\.md$
-vignette-spinners/
+^vignette-spinners/.*
 ^\.github$
+^.*\.tar\.gz$
