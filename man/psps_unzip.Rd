@@ -4,7 +4,7 @@
 \alias{psps_unzip}
 \title{Unzip Downloaded Data Sets}
 \usage{
-psps_unzip(path = NULL)
+psps_unzip(path = NULL, ...)
 }
 \arguments{
 \item{path}{directory to the downloaded PSPS files.}

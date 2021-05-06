@@ -1,6 +1,6 @@
 Package: cms.psps
 Title: Centers for Medicare and Medicaid Physician/Suppler Procedure Summary
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person("Peter", "DeWitt", , "dewittpe@gmail.com", role = c("aut", "cre"))
     )
@@ -19,5 +19,5 @@ Suggests:
     knitr,
     magrittr,
     rmarkdown
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1.9001
 VignetteBuilder: knitr

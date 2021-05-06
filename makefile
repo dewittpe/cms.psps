@@ -39,7 +39,7 @@ install: $(PKG_NAME)_$(PKG_VERSION).tar.gz
 	R CMD INSTALL $(PKG_NAME)_$(PKG_VERSION).tar.gz
 
 clean:
-	$(RM) -f  $(PKG_NAME)_$(PKG_VERSION).tar.gz
-	$(RM) -rf $(PKG_NAME).Rcheck
-	$(RM) -f .document.Rout
+	$(RM)  $(PKG_NAME)_$(PKG_VERSION).tar.gz
+	$(RM) -r $(PKG_NAME).Rcheck
+	$(RM) .document.Rout
 
