@@ -4,10 +4,12 @@
 \alias{psps_md5sum}
 \title{Verify PSPS .zip files via MD5SUM}
 \usage{
-psps_md5sum(path = NULL, ...)
+psps_md5sum(path = NULL, years = 2010:2019, ...)
 }
 \arguments{
 \item{path}{directory to the downloaded PSPS files.}
+
+\item{years}{data sets to verify}
 
 \item{...}{not currently used.}
 }

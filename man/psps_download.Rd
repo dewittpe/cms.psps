@@ -4,10 +4,12 @@
 \alias{psps_download}
 \title{Download the PSPS Data}
 \usage{
-psps_download(path = NULL, ...)
+psps_download(path = NULL, years = 2010:2019, ...)
 }
 \arguments{
 \item{path}{directory to save the downloaded files too.}
+
+\item{years}{years to download}
 
 \item{...}{not currently used.}
 }

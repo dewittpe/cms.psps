@@ -3,42 +3,44 @@
 #' Download the public files provided by CMS.
 #'
 #' @param path directory to save the downloaded files too.
+#' @param years years to download
 #' @param ... not currently used.
 #'
 #' @export
-psps_download <- function(path = NULL, ...) {
+psps_download <- function(path = NULL, years = 2010:2019, ...) {
 
   if (is.null(path)) {
     path <- rappdirs::user_data_dir(appname = "cms.psps")
   }
 
-  # create needed directories
-  dir.create(path = path, showWarnings = FALSE, recursive = TRUE)
+  stopifnot(all(years %in% 2010:2019))
 
-  # message("Downloading 2010 data:\n")
-  # download.file(url = "https://downloads.cms.gov/files/PSPS2010.zip",
-  # destfile = paste(path, "psps2010.zip", sep = "/"))
+  # create needed directories, if needed
+  dir.create(path = path, showWarnings = FALSE, recursive = TRUE)
 
   Map(f =
       function(n, u) {
         message(sprintf("Downloading %s:\n", n))
         utils::download.file(url = u, destfile = paste(path, n, sep = "/"))
       },
-      n = names(psps_urls()),
-      u = psps_urls())
+      n = names(psps_urls())[which(2010:2019 %in% years)],
+      u = psps_urls()[which(2019:2019 %in% years)])
 }
 
 #' Verify PSPS .zip files via MD5SUM
 #'
 #' @param path directory to the downloaded PSPS files.
+#' @param years data sets to verify
 #' @param ... not currently used.
 #'
 #' @export
-psps_md5sum <- function(path = NULL, ...) {
+psps_md5sum <- function(path = NULL, years = 2010:2019, ...) {
 
   if (is.null(path)) {
     path <- rappdirs::user_data_dir(appname = "cms.psps")
   }
+
+  stopifnot(all(years %in% 2010:2019))
 
   # updated 6 May 2021 for v0.1.0
   expected <- list(
@@ -53,6 +55,7 @@ psps_md5sum <- function(path = NULL, ...) {
                    , "psps2018.zip" = "5d3e55669ea9523250fe49ae2f41bf0f"
                    , "psps2019.zip" = "80ca784297c18c30acfe9edbf2e4be8d"
                    )
+  expected <- expected[which(2010:2019 %in% years)]
 
   observed <- tools::md5sum(files = paste(path, names(expected), sep = "/"))
   names(observed) <- basename(names(observed))
@@ -78,27 +81,14 @@ psps_unzip <- function(path = NULL, ...) {
     path <- rappdirs::user_data_dir(appname = "cms.psps")
   }
 
-  message("Unzipping 2010...")
-  utils::unzip(paste0(path, "/psps2010.zip"), exdir = paste0(path, "/psps2010"))
-  message("Unzipping 2011...")
-  utils::unzip(paste0(path, "/psps2011.zip"), exdir = paste0(path, "/psps2011"))
-  message("Unzipping 2012...")
-  utils::unzip(paste0(path, "/psps2012.zip"), exdir = paste0(path, "/psps2012"))
-  message("Unzipping 2013...")
-  utils::unzip(paste0(path, "/psps2013.zip"), exdir = paste0(path, "/psps2013"))
-  message("Unzipping 2014...")
-  utils::unzip(paste0(path, "/psps2014.zip"), exdir = paste0(path, "/psps2014"))
-  message("Unzipping 2015...")
-  utils::unzip(paste0(path, "/psps2015.zip"), exdir = paste0(path, "/psps2015"))
-  message("Unzipping 2016...")
-  utils::unzip(paste0(path, "/psps2016.zip"), exdir = paste0(path, "/psps2016"))
-  message("Unzipping 2017...")
-  utils::unzip(paste0(path, "/psps2017.zip"), exdir = paste0(path, "/psps2017"))
-  message("Unzipping 2018...")
-  utils::unzip(paste0(path, "/psps2018.zip"), exdir = paste0(path, "/psps2018"))
-  message("Unzipping 2019...")
-  utils::unzip(paste0(path, "/psps2019.zip"), exdir = paste0(path, "/psps2019"))
+  zips <- list.files(path, pattern = "*\\.zip$", full.names = TRUE)
+  zips <- stats::setNames(zips, basename(list.files(path, pattern = "*\\.zip$", full.names = TRUE)))
 
+  for (i in seq_along(zips)) {
+    message(paste0("Unzipping ", names(zips)[i]))
+    utils::unzip(zips[i],
+                 exdir = paste0(path, "/", sub(".zip", "", names(zips)[i])))
+  }
   invisible(TRUE)
 }
 

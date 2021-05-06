@@ -46,8 +46,8 @@ psps_import <- function(path = NULL, years = 2010:2019, ...) {
            })
 
   DT <- stats::setNames(DT, years)
-  DT <- data.table::rbindlist(DT, idcol = "year")
-  data.table::set(DT, j = "year", value = as.integer(DT[["year"]]))
+  DT <- data.table::rbindlist(DT, idcol = "YEAR")
+  data.table::set(DT, j = "YEAR", value = as.integer(DT[["YEAR"]]))
   DT
 }
 
