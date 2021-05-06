@@ -25,7 +25,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 #'
 #+ label = "namespaces"
 # /*
-if (TRUE) {
+if (interactive()) {
   devtools::load_all()
 } else {
 # */
@@ -107,7 +107,7 @@ format(utils::object.size(psps2017), units = "GB")
 psps_14_15 <- psps_import(years = 2014:2015)
 str(psps_14_15)
 
-table(psps_14_15$YEAR)
+psps_14_15[, formatC(.N, format = "d", big.mark = ","), by = .(YEAR)]
 
 format(utils::object.size(psps_14_15), units = "GB")
 

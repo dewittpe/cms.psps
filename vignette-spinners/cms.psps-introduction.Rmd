@@ -109,7 +109,7 @@ Reading in multiple years will result in one data.table.
 psps_14_15 <- psps_import(years = 2014:2015)
 str(psps_14_15)
 
-table(psps_14_15$YEAR)
+psps_14_15[, formatC(.N, format = "d", big.mark = ","), by = .(YEAR)]
 
 format(utils::object.size(psps_14_15), units = "GB")
 ```
