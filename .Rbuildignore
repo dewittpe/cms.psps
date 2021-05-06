@@ -1,2 +1,4 @@
 ^\.document\.Rout$
 ^\.travis\.yml$
+Makefile
+^LICENSE\.md$
