@@ -2,37 +2,15 @@
 % Please edit documentation in R/import.R
 \name{import}
 \alias{import}
-\alias{psps_import_2010}
-\alias{psps_import_2011}
-\alias{psps_import_2012}
-\alias{psps_import_2013}
-\alias{psps_import_2014}
-\alias{psps_import_2015}
-\alias{psps_import_2016}
-\alias{psps_import_2017}
-\alias{psps_import_2018}
+\alias{psps_import}
 \title{Import Functions for the PSPS data}
 \usage{
-psps_import_2010(path = NULL, ...)
-
-psps_import_2011(path = NULL, ...)
-
-psps_import_2012(path = NULL, ...)
-
-psps_import_2013(path = NULL, ...)
-
-psps_import_2014(path = NULL, ...)
-
-psps_import_2015(path = NULL, ...)
-
-psps_import_2016(path = NULL, ...)
-
-psps_import_2017(path = NULL, ...)
-
-psps_import_2018(path = NULL, ...)
+psps_import(path = NULL, years = 2010:2019, ...)
 }
 \arguments{
 \item{path}{path to the directory where the downloaded data is stored.}
+
+\item{years}{which years to import}
 
 \item{...}{additional arguments passed to \code{data.table::fread}}
 }
@@ -54,32 +32,11 @@ if (!all(check$check)) {
   psps_unzip()
 }
 
-psps_2010 <- psps_import_2010()
+psps_2010 <- psps_import(year = 2010)
 psps_2010
 
-psps_2011 <- psps_import_2011()
-psps_2011
-
-psps_2012 <- psps_import_2012()
-psps_2012
-
-psps_2013 <- psps_import_2013()
-psps_2013
-
-psps_2014 <- psps_import_2014()
-psps_2014
-
-psps_2015 <- psps_import_2015()
-psps_2015
-
-psps_2016 <- psps_import_2016()
-psps_2016
-
-psps_2017 <- psps_import_2017()
-psps_2017
-
-psps_2018 <- psps_import_2018()
-psps_2018
+psps_2018_2019 <- psps_import(years = 2018:2019)
+psps_2018_2019
 
 }
 
