@@ -16,6 +16,7 @@ Imports:
 Suggests:
     knitr,
     magrittr,
+    R.rsp,
     rmarkdown
 RoxygenNote: 7.1.1
-VignetteBuilder: knitr
+VignetteBuilder: R.rsp

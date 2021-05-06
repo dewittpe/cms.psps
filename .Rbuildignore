@@ -2,3 +2,4 @@
 ^\.travis\.yml$
 Makefile
 ^LICENSE\.md$
+vignette-spinners/

@@ -6,20 +6,22 @@ CRAN = "https://cran.rstudio.com"
 
 RFILES    = $(wildcard $(PKG_ROOT)/R/*.R)
 TESTS     = $(wildcard $(PKG_ROOT)/tests/testthat/*.R)
-VIGNETTES = $(wildcard $(PKG_ROOT)/vignette-spinners/*.R)
-RAWDATAR  = $(wildcard $(PKG_ROOT)/data-raw/*.R)
+VIGNETTES = $(PKG_ROOT)/vignettes/cms.psps-introduction.html
 
 .PHONY: all check install clean
 
 all: $(PKG_NAME)_$(PKG_VERSION).tar.gz
 
 .document.Rout: $(RFILES) $(SRC) $(EXAMPLES) $(RAWDATAR) $(VIGNETTES) $(PKG_ROOT)/DESCRIPTION
-	if [ -e "$(PKG_ROOT)/data-raw/makefile" ]; then $(MAKE) -C $(PKG_ROOT)/data-raw/; else echo "Nothing to do"; fi
 	Rscript --vanilla --quiet -e "options(repo = c('$(CRAN)'))" \
 		-e "options(warn = 2)" \
-		-e "devtools::document('$(PKG_ROOT)')" \
-		-e "invisible(file.create('$(PKG_ROOT)/.document.Rout', showWarnings = FALSE))"
-	if [ -e "$(PKG_ROOT)/vignette-spinners/makefile" ]; then $(MAKE) -C $(PKG_ROOT)/vignette-spinners/; else echo "Nothing to do"; fi
+		-e "devtools::document('$(PKG_ROOT)')"
+	@touch $@
+
+$(PKG_ROOT)/vignettes/cms.psps-introduction.html : vignette-spinners/cms.psps-introduction.R
+	R --vanilla --quiet -e "knitr::spin(hair = '$<', knit = FALSE)"\
+		-e "rmarkdown::render('$(basename $<).Rmd')"
+	mv $(basename $<).html $@
 
 $(PKG_NAME)_$(PKG_VERSION).tar.gz: .document.Rout $(TESTS) $(PKG_ROOT)/DESCRIPTION
 	R CMD build --no-resave-data --md5 $(build-options) $(PKG_ROOT)
