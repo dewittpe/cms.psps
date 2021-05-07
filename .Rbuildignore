@@ -6,4 +6,3 @@
 ^\.github$
 ^.*\.tar\.gz$
 ^cran-comments\.md$
-^NEWS\.md$
